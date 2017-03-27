@@ -3,7 +3,6 @@ package com.baolan.permissiontest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
@@ -32,7 +31,11 @@ public class PermissionUtils {
                     listener.onSuccess();
                 }
             } else {
-                ActivityCompat.requestPermissions(getActivity(object), permissions, REQUEST_CODE);
+                if (object instanceof Activity) {
+                    getActivity(object).requestPermissions(permissions, REQUEST_CODE);
+                } else if (object instanceof Fragment) {
+                    getFragment(object).requestPermissions(permissions, REQUEST_CODE);
+                }
             }
         } else {
             if (null != listener) {
@@ -40,6 +43,10 @@ public class PermissionUtils {
             }
         }
         return this;
+    }
+
+    private Fragment getFragment(Object object) {
+        return (Fragment) object;
     }
 
     public static void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -76,6 +83,7 @@ public class PermissionUtils {
 
     public interface OnRequestPermissionsListener {
         void onSuccess();
+
         void onFailure();
     }
 

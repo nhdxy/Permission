@@ -34,6 +34,10 @@ public class PermissionUtils {
             } else {
                 ActivityCompat.requestPermissions(getActivity(object), permissions, REQUEST_CODE);
             }
+        } else {
+            if (null != listener) {
+                listener.onSuccess();
+            }
         }
         return this;
     }

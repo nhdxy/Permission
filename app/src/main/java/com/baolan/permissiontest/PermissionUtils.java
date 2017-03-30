@@ -3,6 +3,7 @@ package com.baolan.permissiontest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
@@ -20,7 +21,7 @@ public class PermissionUtils {
         this.object = object;
     }
 
-    public static PermissionUtils with(Object object) {
+    public static PermissionUtils with(@NonNull Object object) {
         return new PermissionUtils(object);
     }
 
